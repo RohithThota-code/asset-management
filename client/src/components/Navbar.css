@@ -1,0 +1,36 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--bg-secondary);
+    border-bottom: 2px solid var(--color-accent);
+    box-shadow: 0 4px 0 var(--color-link);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75rem;
+    color: var(--color-link);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    transition: 0.3s;
+    background-color: var(--bg-primary);
+    box-shadow: 3px 3px 0 var(--color-accent);
+}
+
+.nav-link:hover {
+    background-color: var(--gradient-start);
+    color: var(--bg-primary);
+    box-shadow: 3px 3px 0 var(--gradient-end);
+}

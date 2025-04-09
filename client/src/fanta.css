@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+:root {
+    --bg-primary: #1b1c36;
+    --bg-secondary: #2b2e4a;
+    --color-primary: #f0f0f0;
+    --color-accent: #ffcc00;
+    --color-link: #80dfff;
+    --border-primary: #3e4260;
+    --radius-small: 0px;
+    --radius-large: 0px;
+    --gradient-start: #ff5e79;
+    --gradient-end: #ffc15e;
+}
+
+
+/* Reset and Global Styles */
+
+•⁠  ⁠{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', cursive;
+    cursor: url('https://example.com/pixel-cursor.png'), auto;
+    /* Use a custom pixel art cursor */
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--color-primary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* Headings */
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Press Start 2P', cursive;
+    color: var(--color-primary);
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: var(--color-accent);
+}
+
+h2 {
+    font-size: 1.25rem;
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+h4 {
+    font-size: 0.875rem;
+}
+
+
+/* Buttons */
+
+button {
+    padding: 10px 20px;
+    background: var(--bg-secondary);
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-small);
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 3px 3px 0 var(--color-accent);
+    text-transform: uppercase;
+}
+
+button:hover {
+    background: var(--gradient-start);
+    color: var(--bg-primary);
+    box-shadow: 3px 3px 0 var(--gradient-end);
+}
+
+
+/* Links */
+
+a {
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--gradient-start);
+    text-decoration: underline;
+}
+
+
+/* Containers */
+
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    border-radius: var(--radius-large);
+    background: var(--bg-secondary);
+    border: 2px solid var(--color-accent);
+    box-shadow: 5px 5px 0 var(--color-link);
+}
+
+
+/* Flex Layout */
+
+.flex {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+
+/* Typography */
+
+.text-gradient {
+    background: linear-gradient(135deg, #ff5e79, #ffc15e);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+
+/* Forms */
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-small);
+    background: var(--bg-secondary);
+    color: var(--color-primary);
+    font-family: 'Press Start 2P', cursive;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--gradient-start);
+    outline: none;
+}
+
+
+/* Tables */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border-bottom: 2px solid var(--border-primary);
+}
+
+th {
+    background: var(--bg-secondary);
+    text-align: left;
+    color: var(--color-accent);
+}
+
+
+/* Media Queries */
+
+@media (max-width: 768px) {
+    .flex {
+        flex-direction: column;
+    }
+    button {
+        width: 100%;
+    }
+}
