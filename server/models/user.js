@@ -9,11 +9,6 @@ const userSchema = new Schema({
         sessionId: String,
         loginTime: Date,
         logoutTime: Date,
-        scores: [{
-            score: Number,
-            date: { type: Date, default: Date.now }
-        }],
-        images: [String] // Array of image paths
     }]
 });
 

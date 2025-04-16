@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { UserContext } from "../pages/userContext"; // correct path
+
+
 
 
 
 export default function Login() {
+    const { setUser, setIsLoggedIn } = useContext(UserContext);
     const navigate = useNavigate();
     const [data, setData] = useState({ 
         email: '',
@@ -27,6 +32,9 @@ export default function Login() {
                 toast.error(responseData.error);
             } else {
                 setData({ email: '', password: '' });
+                setUser(responseData.user);      // <-- This sets the context immediately
+                setIsLoggedIn(true);             // <-- Avoids redirect loop
+                toast.success("Login successful!");
                 navigate('/startscreen');
                 
             }

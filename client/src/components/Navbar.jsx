@@ -5,7 +5,7 @@ import './Navbar.css';
 
 
 export default function Navbar() {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, logout } = useContext(UserContext);
 
   return (
     <nav className="navbar">
@@ -13,10 +13,10 @@ export default function Navbar() {
       {!isLoggedIn && (
       <Link to="/login" className="nav-link">Login</Link>
       )}
-
-
-      {isLoggedIn && (
-        <Link to="/startscreen" className="nav-link">Inventory</Link>
+      {isLoggedIn ? (
+        <button onClick={logout}>Logout</button>
+      ) : (
+        <p></p>
       )}
     </nav>
   );

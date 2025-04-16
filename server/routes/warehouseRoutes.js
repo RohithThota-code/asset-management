@@ -1,4 +1,6 @@
 const express = require('express');
+const { authenticateToken } = require("../controllers/authController");
+
 const router = express.Router();
 const {
   getAllWarehouses,
@@ -6,6 +8,7 @@ const {
   deleteWarehouse
 } = require('../controllers/warehouseController');
 const Warehouse = require("../models/warehouse");
+router.use(express.json());
 
 // Get all warehouses
 router.get('/', getAllWarehouses);
@@ -46,15 +49,30 @@ router.post("/:id/assets", async (req, res) => {
 });
 
 // ✅ Update asset quantity in warehouse
-router.put("/:warehouseId/assets/:assetId", async (req, res) => {
+router.put("/:warehouseId/assets/:assetId", authenticateToken, async (req, res) => {
   try {
+    const { quantity } = req.body;
+
     const warehouse = await Warehouse.findById(req.params.warehouseId);
     if (!warehouse) return res.status(404).json({ message: "Warehouse not found" });
+    
 
     const asset = warehouse.assets.id(req.params.assetId);
     if (!asset) return res.status(404).json({ message: "Asset not found" });
+    console.log("Updating asset:", asset._id, "to quantity:", req.body.quantity);
 
-    if (req.body.quantity !== undefined) asset.Quantity = req.body.Quantity;
+    
+
+    if (quantity !== undefined) {
+      asset.quantity = quantity;
+      asset.history.push({
+        quantity,
+        updatedBy: {
+          employeeId: req.user._id,   // from auth middleware
+          name: req.user.name         // or username/email
+        }
+      });
+    }
     await warehouse.save();
 
     res.json({ message: "Asset updated", asset });
@@ -79,5 +97,31 @@ router.delete("/:warehouseId/assets/:assetId", async (req, res) => {
     res.status(500).json({ error: "Failed to delete asset" });
   }
 });
+
+
+router.get("/:warehouseId/asset-history", async (req, res) => {
+  try {
+    const warehouse = await Warehouse.findById(req.params.warehouseId);
+    if (!warehouse) return res.status(404).json({ message: "Warehouse not found" });
+
+    const allEntries = [];
+
+    warehouse.assets.forEach(asset => {
+      asset.history.forEach(entry => {
+        allEntries.push({
+          assetName: asset.name,
+          quantity: entry.quantity,
+          date: entry.date,
+        });
+      });
+    });
+
+    res.json(allEntries);
+  } catch (err) {
+    console.error("Error fetching asset history:", err);
+    res.status(500).json({ error: "Failed to fetch asset history" });
+  }
+});
+
 
 module.exports = router;

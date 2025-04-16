@@ -190,7 +190,6 @@ const getProfile = async (req, res) => {
             return res.status(401).json({ error: "Session expired or not found" });
         }
 
-        const latestScore = currentSession.scores.length > 0 ? currentSession.scores[currentSession.scores.length - 1] : null;
 
         return res.json({
             id: user._id,
@@ -199,7 +198,6 @@ const getProfile = async (req, res) => {
             currentSession: {
                 sessionId: currentSession.sessionId,
                 loginTime: currentSession.loginTime,
-                latestScore: latestScore
             }
         });
     } catch (error) {

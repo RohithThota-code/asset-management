@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {  Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
-import Header from '../src/components/Header';
-import Navbar from '../src/components/Navbar';
-import Home from '../src/pages/Home';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
-import Dashboard from '../src/pages/Dashboard';
+import Dashboard from './pages/Dashboard';
 import StartScreen from './StartScreen.jsx';
-import { UserContextProvider } from '../src/pages/userContext';
+import { UserContextProvider } from './pages/userContext.jsx';
 import Warehouse from './pages/Warehouse.jsx';
 import WarehouseAssets from './pages/WarehouseAssets.jsx';
-
+import History from './pages/History.jsx';
+import ProtectedRoute from './components/ProtectedRoute';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -26,37 +27,59 @@ axios.interceptors.request.use((config) => {
 });
 
 function App() {
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-
   return (
     <UserContextProvider>
-      <Header />
-      <Navbar />
-      <Toaster position="center" toastOptions={{ duration: 3000 }} />
-      
-      {/* Game and routes */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/warehouse" element={<Warehouse />} />
-        <Route path="/warehouse/:id" element={<WarehouseAssets />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/startscreen" element={<StartScreen />} />
-      </Routes>
+     
+        <Header />
+        <Navbar />
+        <Toaster position="center" toastOptions={{ duration: 3000 }} />
 
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard"element={<Dashboard />}/>
+
+          {/* Protected Routes */}
+          <Route
+            path="/startscreen"
+            element={
+              <ProtectedRoute>
+                <StartScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/warehouse"
+            element={
+              <ProtectedRoute>
+                <Warehouse />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/warehouse/:id"
+            element={
+              <ProtectedRoute>
+                <WarehouseAssets />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/history/:warehouseId"
+            element={
+              <ProtectedRoute>
+                <History />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      
     </UserContextProvider>
   );
 }
 
 export default App;
+
 

@@ -122,30 +122,36 @@ const Warehouse = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {warehouses.map((w) => (
-            <div
-              key={w._id}
-              className="bg-white shadow-lg p-6 rounded-xl transition relative"
+        <div
+          key={w._id}
+          className="bg-white shadow-lg p-6 rounded-xl transition relative"
+        >
+        <div onClick={() => handleClick(w._id)} className="cursor-pointer">
+        <h2 className="text-xl font-semibold">{w.name}</h2>
+        <p className="text-gray-600">📍 {w.location}</p>
+        <p className="text-sm mt-2">Occupied: {w.spaceOccupied} sq ft</p>
+        <p className="text-sm">Left: {w.spaceLeft} sq ft</p>
+        </div>
+
+        <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={() => navigate(`/history/${w._id}`)}
+          className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
+        >
+          View History
+        </button>
+
+        <button
+          onClick={() => handleDeleteWarehouse(w._id)}
+          className="text-red-500 hover:text-red-700 text-sm"
+          title="Delete warehouse"
             >
-              <div
-                onClick={() => handleClick(w._id)}
-                className="cursor-pointer"
-              >
-                <h2 className="text-xl font-semibold">{w.name}</h2>
-                <p className="text-gray-600">📍 {w.location}</p>
-                <p className="text-sm mt-2">
-                  Occupied: {w.spaceOccupied} sq ft
-                </p>
-                <p className="text-sm">Left: {w.spaceLeft} sq ft</p>
-              </div>
-              <button
-                onClick={() => handleDeleteWarehouse(w._id)}
-                className="absolute top-2 right-2 text-red-500 hover:text-red-700"
-                title="Delete warehouse"
-              >
-                🗑️
-              </button>
-            </div>
-          ))}
+          🗑️ Delete
+        </button>
+          </div>
+        </div>
+        ))}
+
         </div>
       )}
     </div>

@@ -5,8 +5,6 @@ const {
     loginUser, 
     getProfile, 
     logoutUser, 
-    saveScore, 
-    saveImage,  // Import the saveImage function
     authenticateToken 
 } = require('../controllers/authController');
 

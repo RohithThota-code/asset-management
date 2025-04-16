@@ -5,6 +5,17 @@ const assetSchema = new mongoose.Schema({
   category: { type: String, required: true },
   quantity: { type: Number, required: true },
   unitPrice: { type: Number, required: true },
+  history: [
+    {
+      quantity: Number,
+      date: { type: Date, default: Date.now },
+      updatedBy: {
+        employeeId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        name: String
+      }
+    }
+  ]
+  
 }, { timestamps: true });
 
 
