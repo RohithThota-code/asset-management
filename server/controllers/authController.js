@@ -146,9 +146,6 @@ const logoutUser = async (req, res) => {
     });
 };
 
-
-
-
 // Middleware for token authentication
 const authenticateToken = (req, res, next) => {
     const { token } = req.cookies;
@@ -205,8 +202,6 @@ const getProfile = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch profile" });
     }
 };
-
-
 
 
 module.exports = {

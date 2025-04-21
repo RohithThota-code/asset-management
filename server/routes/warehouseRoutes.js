@@ -1,5 +1,8 @@
 const express = require('express');
 const { authenticateToken } = require("../controllers/authController");
+const axios = require('axios');
+const Warehouse = require("../models/warehouse");
+const prepareData = require('../controllers/prepareData');
 
 const router = express.Router();
 const {
@@ -7,7 +10,9 @@ const {
   createWarehouse,
   deleteWarehouse
 } = require('../controllers/warehouseController');
-const Warehouse = require("../models/warehouse");
+
+
+
 router.use(express.json());
 
 // Get all warehouses
@@ -122,6 +127,28 @@ router.get("/:warehouseId/asset-history", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch asset history" });
   }
 });
+
+
+router.post("/:assetId/forecast", async (req, res) => {
+  try {
+    const assetId = req.params.assetId;
+    const { assetName, data } = await prepareData(assetId);
+
+    if (!assetName || !data.length) {
+      return res.status(400).json({ error: "Asset name or data missing in history" });
+    }
+
+    const flaskRes = await axios.post("http://localhost:5001/forecast", {
+      assetName: assetName
+    });
+
+    res.json(flaskRes.data);
+  } catch (err) {
+    console.error("Forecast error:", err.message);
+    res.status(500).json({ error: "Failed to forecast demand" });
+  }
+});
+
 
 
 module.exports = router;

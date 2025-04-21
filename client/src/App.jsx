@@ -14,6 +14,7 @@ import Warehouse from './pages/Warehouse.jsx';
 import WarehouseAssets from './pages/WarehouseAssets.jsx';
 import History from './pages/History.jsx';
 import ProtectedRoute from './components/ProtectedRoute';
+import Forecast from "./pages/Forecast";
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -66,6 +67,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/forecast/:assetId"
+            element={
+              <ProtectedRoute>
+                <Forecast />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/history/:warehouseId"
             element={

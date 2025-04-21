@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 const WarehouseAssets = () => {
   const { id } = useParams();
@@ -13,6 +13,7 @@ const WarehouseAssets = () => {
     quantity: 0,
     unitPrice: 0,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchAssets();
@@ -169,6 +170,13 @@ const WarehouseAssets = () => {
                   >
                     Delete Asset
                   </button>
+                  <button
+                    onClick={() => navigate(`/forecast/${asset._id}`)}
+                    className="mt-2 text-blue-600 hover:text-blue-800 text-sm"
+                  >
+                    🔮 Forecast
+                  </button>
+
                 </li>
               ))}
             </ul>

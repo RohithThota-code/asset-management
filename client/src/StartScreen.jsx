@@ -17,6 +17,10 @@ const StartScreen = () => {
   const sendToCI = () => {
     navigate("/warehouse");
   };
+  const sendToPI = () => {
+    navigate("/warehouse");
+  };
+  
 
   return (
     <div className="start-screen">
