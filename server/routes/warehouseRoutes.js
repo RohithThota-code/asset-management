@@ -3,7 +3,7 @@ const { authenticateToken } = require("../controllers/authController");
 const axios = require('axios');
 const Warehouse = require("../models/warehouse");
 const prepareData = require('../controllers/prepareData');
-
+const requireAdmin = require("../controllers/requireAdmin");
 const router = express.Router();
 const {
   getAllWarehouses,
@@ -13,16 +13,17 @@ const {
 
 
 
+
 router.use(express.json());
 
 // Get all warehouses
 router.get('/', getAllWarehouses);
 
 // Create a new warehouse
-router.post('/', createWarehouse);
+router.post('/', requireAdmin,createWarehouse);
 
 // Delete a warehouse
-router.delete('/:id', deleteWarehouse);
+router.delete('/:id', requireAdmin,deleteWarehouse);
 
 // Get a single warehouse by ID
 router.get("/:id", async (req, res) => {
@@ -58,34 +59,38 @@ router.put("/:warehouseId/assets/:assetId", authenticateToken, async (req, res) 
   try {
     const { quantity } = req.body;
 
+    if (!req.user.canUpdate) {
+      return res.status(403).json({ error: "You do not have permission to update assets." });
+    }
+
     const warehouse = await Warehouse.findById(req.params.warehouseId);
     if (!warehouse) return res.status(404).json({ message: "Warehouse not found" });
-    
 
     const asset = warehouse.assets.id(req.params.assetId);
     if (!asset) return res.status(404).json({ message: "Asset not found" });
-    console.log("Updating asset:", asset._id, "to quantity:", req.body.quantity);
 
-    
+    console.log("Updating asset:", asset._id, "to quantity:", quantity);
 
     if (quantity !== undefined) {
       asset.quantity = quantity;
       asset.history.push({
         quantity,
         updatedBy: {
-          employeeId: req.user._id,   // from auth middleware
-          name: req.user.name         // or username/email
+          employeeId: req.user.id,          // comes from token
+          name: req.user.username           // fix from earlier
         }
       });
     }
-    await warehouse.save();
 
+    await warehouse.save();
     res.json({ message: "Asset updated", asset });
+
   } catch (err) {
     console.error("Error updating asset:", err);
     res.status(500).json({ error: "Failed to update asset" });
   }
 });
+
 
 // ✅ Delete asset from warehouse
 router.delete("/:warehouseId/assets/:assetId", async (req, res) => {

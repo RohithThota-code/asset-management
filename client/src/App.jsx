@@ -15,6 +15,8 @@ import WarehouseAssets from './pages/WarehouseAssets.jsx';
 import History from './pages/History.jsx';
 import ProtectedRoute from './components/ProtectedRoute';
 import Forecast from "./pages/Forecast";
+import Admin from './pages/Admin';
+
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -39,10 +41,17 @@ function App() {
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/dashboard"element={<Dashboard />}/>
 
           {/* Protected Routes */}
+          <Route
+            path="/register"
+            element={
+              <ProtectedRoute>
+                <Register />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/startscreen"
             element={
@@ -84,6 +93,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+          path="/admin"
+            element={
+              <ProtectedRoute>
+              <Admin /> {/* Create this component for admin-only view */}
+                </ProtectedRoute>
+              }
+                />
+
         </Routes>
       
     </UserContextProvider>

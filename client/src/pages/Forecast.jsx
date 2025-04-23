@@ -32,10 +32,10 @@ const Forecast = () => {
       const fullData = await axios.get("http://localhost:5001/forecast.json", {
         withCredentials: true
       });      
-      console.log("✅ Chart data:", fullData.data);
+      console.log("Chart data:", fullData.data);
       setChartData(fullData.data);
     } catch (err) {
-      console.error("❌ Error fetching forecast:", err);
+      console.error("Error fetching forecast:", err);
       if (err.response?.data?.error) {
         setErrorMsg(err.response.data.error);
       } else {

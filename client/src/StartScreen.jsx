@@ -1,26 +1,31 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
-import { UserContext } from './pages/userContext'; // adjust path if needed
+import axios from 'axios';
+import { UserContext } from './pages/userContext';
 
 const StartScreen = () => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext); // Get user from context
+  const { user, setUser } = useContext(UserContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    console.log("Token:", token); // Debugging line
-    setIsLoggedIn(!!token);
-  }, []);
+    const fetchProfile = async () => {
+      try {
+        const res = await axios.get('http://localhost:8000/profile', { withCredentials: true });
+        // 🔐 token is auto-sent
+        setUser(res.data); // ✅ set user in context
+        setIsLoggedIn(true);
+        console.log("Authenticated user:", res.data);
+      } catch (err) {
+        setIsLoggedIn(false);
+        console.error("Not logged in:", err);
+      }
+    };
 
-  const sendToCI = () => {
-    navigate("/warehouse");
-  };
-  const sendToPI = () => {
-    navigate("/warehouse");
-  };
-  
+    fetchProfile();
+  }, [setUser]);
+
+  const sendToCI = () => navigate("/warehouse");
 
   return (
     <div className="start-screen">

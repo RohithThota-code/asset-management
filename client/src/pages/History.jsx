@@ -30,7 +30,7 @@ const History = () => {
       const uniqueAssets = _.uniq(rawData.map((item) => item.assetName));
   
       const groupedByDate = _.groupBy(rawData, (item) =>
-        moment(item.date).format("YYYY-MM-DD")
+        moment (new Date(item.date)).format("YYYY-MM-DD")
       );
   
       const formattedData = Object.entries(groupedByDate).map(([date, entries]) => {
