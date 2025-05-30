@@ -106,6 +106,7 @@ const Warehouse = () => {
             required
           />
         </div>
+        <br />
         <button
           type="submit"
           className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
@@ -136,7 +137,7 @@ const Warehouse = () => {
         <div className="flex justify-between items-center mt-4">
         <button
           onClick={() => navigate(`/history/${w._id}`)}
-          className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
+          
         >
           View History
         </button>

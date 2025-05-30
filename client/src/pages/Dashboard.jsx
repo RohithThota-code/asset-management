@@ -103,25 +103,25 @@ function Dashboard() {
 
     return (
         <div>
-            <div className="flex justify-between items-center p-4">
-                <h1 className="text-2xl font-bold">Welcome to the Dashboard!</h1>
+            <div>
+                <h1 >Welcome to the Dashboard!</h1>
                 <button 
                     onClick={logout}
-                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+                    
                 >
                     Logout
                 </button>
                 <button
                     onClick={handleManualVerify}
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded ml-4"
+                    
                 >
                     Manually Verify User
                 </button>
             </div>
             {user && (
-                <div className="p-4">
-                    <h2 className="text-xl">Hi, {user.email}!</h2>
-                    {/* Add more user info or dashboard content here */}
+                <div >
+                    <h2 >Hi, {user.email}!</h2>
+                    
                 </div>
             )}
         </div>

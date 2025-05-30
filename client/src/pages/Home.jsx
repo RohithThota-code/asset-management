@@ -15,19 +15,21 @@ const Home = () => {
   <div className="landing-page-container hidden-scrollbar">
     {/* Hero Section */}
     <div className="hero-section">
-      <h1 className="hero-title">Welcome to AAMS</h1>
-      <p className="hero-subtitle">
-        Streamline, Secure & Scale Your Asset Management.
-      </p>
-      <Link to="/login">
-        <button className="hero-button">Login</button>
-      </Link>
-    </div>
+  <div className="hero-content">
+    <h1 className="hero-title">Welcome to AAMS</h1>
+    <p className="hero-subtitle">
+      Streamline, Secure & Scale Your Asset Management.
+    </p>
+    <Link to="/login">
+      <button className="hero-button btn-outline">Login</button>
+    </Link>
+      </div>
+      </div>
 
     <div>
       <br />
       {isLoggedIn ? (
-        <button onClick={logout}>Logout</button>
+        <button className="hero-button btn-outline" onClick={logout}>Logout</button>
       ) : (
         <p></p>
       )}

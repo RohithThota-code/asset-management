@@ -49,93 +49,88 @@ const Admin = () => {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-10">
-      <h1 className="text-4xl font-bold text-center">Admin Dashboard</h1>
-      <br />
-
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-semibold">Employees</h2>
-        <br />
-      </div>
-
-      <div className="bg-white rounded shadow p-6">
-        <table className="w-full table-auto border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border px-4 py-3">Name</th>
-              <th className="border px-4 py-3">Email</th>
-              <th className="border px-4 py-3">Can Update?</th>
-              <th className="border px-4 py-3">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user._id} className="text-center">
-                <td className="border px-4 py-2">{user.username}</td>
-                <td className="border px-4 py-2">{user.email}</td>
-                <td className="border px-4 py-2">
-                  {user.canUpdate ? "Yes" : "No"}
-                </td>
-                <td className="border px-4 py-2">
-                  <button
-                    onClick={() => toggleUpdatePermission(user._id, user.canUpdate)}
-                    className="px-3 py-1 text-sm rounded bg-yellow-500 hover:bg-yellow-600 text-white"
-                  >
-                    Toggle Update
-                  </button>
-                </td>
+    <div className="px-6 py-10 max-w-6xl mx-auto space-y-12">
+      <h1 className="text-4xl font-bold text-center text-gray-800">
+        Admin Dashboard
+      </h1>
+  
+      {/* Employees Section */}
+      <section className="space-y-6">
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-semibold text-gray-700">Employees</h2>
+          <button
+            onClick={handleRegisterRedirect}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-green-600 text-white rounded hover:bg-green-700"
+          >
+            ➕ Register New User
+          </button>
+        </div>
+  
+        <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+          <table className="min-w-full text-center table-auto border border-gray-200">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-6 py-3 border">Name</th>
+                <th className="px-6 py-3 border">Email</th>
+                <th className="px-6 py-3 border">Can Update?</th>
+                <th className="px-6 py-3 border">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="flex justify-between items-center">
-        
-        <br />
-        <button
-          onClick={handleRegisterRedirect}
-          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          ➕ Register New User
-        </button>
-        
-      </div>
-
-      <div>
-      <br />
-      <br />
-        <h2 className="text-2xl font-semibold mb-4">Update Logs</h2>
-        <br />
-        <div className="bg-white rounded shadow p-6 space-y-4">
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id} className="hover:bg-gray-50">
+                  <td className="px-4 py-3 border">{user.username}</td>
+                  <td className="px-4 py-3 border">{user.email}</td>
+                  <td className="px-4 py-3 border">
+                    <span className={`font-semibold ${user.canUpdate ? 'text-green-600' : 'text-red-500'}`}>
+                      {user.canUpdate ? 'Yes' : 'No'}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 border">
+                    <button
+                      onClick={() => toggleUpdatePermission(user._id, user.canUpdate)}
+                      className="px-3 py-1 text-sm rounded bg-yellow-500 hover:bg-yellow-600 text-white"
+                    >
+                      Toggle Update
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+  
+      {/* Update Logs Section */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-semibold text-gray-700">Update Logs</h2>
+  
+        <div className="bg-white rounded-lg shadow-md p-6 space-y-4">
           {loading ? (
-            <p>Loading logs...</p>
+            <p className="text-gray-500">Loading logs...</p>
           ) : logs.length === 0 ? (
-            <p>No updates found.</p>
+            <p className="text-gray-500">No updates found.</p>
           ) : (
-            <div className="grid gap-4">
+            <div className="grid gap-6">
               {logs.map((log, index) => (
                 <div
                   key={index}
-                  className="border border-gray-200 rounded p-4 bg-gray-50"
+                  className="border border-gray-200 rounded-md bg-gray-50 p-4"
                 >
-                  <p className="text-sm text-gray-800">
-                     <strong>{log.updatedBy}</strong> updated asset <strong>{log.asset}</strong> in warehouse <strong>{log.warehouse}</strong>
+                  <p className="text-gray-800 text-sm">
+                    <strong>{log.updatedBy}</strong> updated asset <strong>{log.asset}</strong> in warehouse <strong>{log.warehouse}</strong>
                     <br />
-                     New Quantity: <strong>{log.quantity}</strong>
+                    New Quantity: <strong>{log.quantity}</strong>
                     <br />
-                     On: <span className="text-gray-600">{new Date(log.date).toLocaleString()}</span>
-                     <hr className="my-2 border-gray-300" />
-                     <br />
-
+                    On: <span className="text-gray-600">{new Date(log.date).toLocaleString()}</span>
                   </p>
                 </div>
               ))}
             </div>
           )}
         </div>
-      </div>
+      </section>
     </div>
   );
 };
-
-export default Admin;
+  export default Admin;

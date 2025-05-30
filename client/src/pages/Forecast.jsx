@@ -28,7 +28,7 @@ const Forecast = () => {
       console.log("✅ Forecast response:", res.data);
       setForecast(res.data);
 
-      // Fetch forecast.json for the chart
+      
       const fullData = await axios.get("http://localhost:5001/forecast.json", {
         withCredentials: true
       });      

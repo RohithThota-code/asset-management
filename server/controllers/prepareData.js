@@ -33,15 +33,15 @@ const prepareData = async (assetId) => {
       if (quantityChange > 0) {
         demandData.push({
           date: current.date,
-          quantity: quantityChange  // ✅ Prophet expects this key to be `quantity`, not `quantityChange`
+          quantity: quantityChange  
         });
       }
     }
 
-    // ✅ Write to flask/data/ from project root
+    
     const filePath = path.join(__dirname, "../../flask/data", `${targetAsset.name}.json`);
     fs.writeFileSync(filePath, JSON.stringify(demandData, null, 2));
-    console.log("✅ Saved demand data to:", filePath);
+    console.log(" Saved demand data to:", filePath);
 
     return {
       assetName: targetAsset.name,

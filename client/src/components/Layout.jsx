@@ -1,16 +1,12 @@
-
-import NavbarComponent from './Navbar'; // Import your Navbar component
+import NavbarComponent from './Navbar';
 
 const Layout = ({ children, hideNavbar }) => {
   return (
-    <div>
-      {/* Conditionally render the NavbarComponent */}
+    <div className="min-h-screen bg-muted text-gray-800 font-sans">
       {!hideNavbar && <NavbarComponent />}
-
-      {/* Main content of the page */}
-      <div className="content">
+      <main className="max-w-7xl mx-auto px-6 py-8">
         {children}
-      </div>
+      </main>
     </div>
   );
 };
