@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState, useRef, useEffect } from 'react';
-import { UserContext } from '../pages/userContext';
 import { toast } from "react-hot-toast";
+import { UserContext } from '../pages/userContext'; // Adjust path if needed
 
 const Navbar = () => {
   const { isLoggedIn, logout, user } = useContext(UserContext);
+  
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef();
@@ -20,23 +21,6 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      const response = await fetch('/logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
-      if (response.ok) {
-        toast.success('Logged out!');
-        navigate('/');
-      } else {
-        const errorData = await response.json();
-        toast.error(`Logout failed: ${errorData.error}`);
-      }
-    } catch {
-      toast.error('Error during logout.');
-    }
-  };
 
   return (
     <nav >
@@ -44,28 +28,21 @@ const Navbar = () => {
         
         <div >
           <Link to="/" >Home</Link>
-          <Link to="/login" >Login</Link>
+          <div>
+          {isLoggedIn ? (
+              <button className="link‐style-button" onClick={logout}>
+            Logout
+            </button>
 
-          {/* Avatar dropdown */}
-          {isLoggedIn && (
-            <div ref={dropdownRef}>
-              <button onClick={() => setDropdownOpen(!dropdownOpen)} >
-                {user?.username?.[0]?.toUpperCase() || 'U'}
-              </button>
-              {dropdownOpen && (
-                <div >
-                  <div >{user?.username || 'User'}</div>
-                  <br />
-                  <button 
-                    onClick={handleLogout}
-                    
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+         ) : (
+           <Link to="/login">
+             
+              Login
+          
+          </Link>
+         )}
+          </div>
+
         </div>
       </div>
     </nav>

@@ -76,8 +76,8 @@ const Forecast = () => {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded shadow">
-            <h3 className="text-lg font-semibold mb-4">
+          <div >
+            <h3 >
               Forecast Trend (with Confidence Interval)
             </h3>
             <ResponsiveContainer width="100%" height={350}>

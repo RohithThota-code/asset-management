@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+
 import {  Routes, Route } from 'react-router-dom';
+import './index.css'
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 import Header from './components/Header';
@@ -16,6 +17,7 @@ import History from './pages/History.jsx';
 import ProtectedRoute from './components/ProtectedRoute';
 import Forecast from "./pages/Forecast";
 import Admin from './pages/Admin';
+
 
 
 axios.defaults.baseURL = 'http://localhost:8000';

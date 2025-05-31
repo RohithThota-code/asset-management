@@ -1,5 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
 /* ==========================================================================
-   1. RESET
+1. RESET
    ========================================================================== */
    *,
    *::before,
@@ -8,7 +13,7 @@
      margin: 0;
      padding: 0;
    }
-   
+
    /* ==========================================================================
       2. VARIABLES
       ========================================================================== */
@@ -352,4 +357,22 @@
      .hero-title    { font-size: 2.25rem; }
      .hero-subtitle { font-size: 1rem; }
    }
+   /* ---------------------------------------
+   Link‐style button (mimics your "Home" link)
+   --------------------------------------- */
+.link‐style-button {
+  background: none;
+  border: none;
+  color: #3366FF;           /* same blue as your Home link */
+  font‐size: 1.5rem;        /* match whatever size "Home" is (adjust as needed) */
+  font‐weight: 500;         /* match your link’s font‐weight */
+  text‐decoration: none;    /* no underline by default */
+  padding: 0;               /* remove extra padding */
+  cursor: pointer;
+}
+
+.link‐style-button:hover {
+  text‐decoration: underline;
+}
+
    

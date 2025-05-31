@@ -20,20 +20,26 @@ const Home = () => {
     <p className="hero-subtitle">
       Streamline, Secure & Scale Your Asset Management.
     </p>
+    <div>
+  {isLoggedIn ? (
+    <button
+      className="hero-button btn-outline"
+      onClick={logout}
+    >
+      Logout
+    </button>
+  ) : (
     <Link to="/login">
-      <button className="hero-button btn-outline">Login</button>
+      <button className="hero-button btn-outline">
+        Login
+      </button>
     </Link>
+  )}
+</div>
       </div>
       </div>
 
-    <div>
-      <br />
-      {isLoggedIn ? (
-        <button className="hero-button btn-outline" onClick={logout}>Logout</button>
-      ) : (
-        <p></p>
-      )}
-    </div>
+    
 
     {/* Features Section */}
     <div className="features-section">
